@@ -5,7 +5,9 @@ from . import model
 
 def main(filename: str) -> None:
 
-    booksCollection, librariesCollection = model.InputReader(filename).parse()
+    booksCollection, librariesCollection, totalDays = model.InputReader(
+        filename
+    ).parse()
 
     solved = solve(booksCollection, librariesCollection)
 
