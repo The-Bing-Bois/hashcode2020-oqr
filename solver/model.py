@@ -7,9 +7,13 @@ class InputReader:
     filename: str = attr.ib(converter=str)
 
     def parse(self) -> None:
-        content = Path(self.filename).read_text(encoding="UTF-8")
+        path = Path(self.filename)
 
-        print(content)
+        content = path.read_text().split("\n")
+
+        books_number, libraries_number, days = content[0].split(" ")
+
+        print(books_number, libraries_number, days)
 
         raise NotImplementedError()
 
