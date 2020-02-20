@@ -27,6 +27,7 @@ def solveBestBook(
     currentlyOpening: model.Library = None  ## to tack currentlyOpeningLibraries
     booksToRestore = []  ## to track currently added books in that fancy book[i]
     librariesToRestore = []
+    librariesToReturn = []
     openLibraries = 0  ## ++ on open
 
     while totalDays > 0:
