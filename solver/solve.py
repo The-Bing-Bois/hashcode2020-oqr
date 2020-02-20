@@ -1,4 +1,5 @@
 from tqdm import tqdm
+import typing
 
 from . import model
 
@@ -8,7 +9,7 @@ def main(filename: str, outname: str) -> None:
     reader = model.InputReader(filename)
     booksCollection, librariesCollection, totalDays = reader.parse()
 
-    solved = solveBestBook(booksCollection, librariesCollection,totalDays)
+    solved = solveBestBook(booksCollection, librariesCollection, totalDays)
 
     writer = model.OutputWriter(outname)
 
@@ -16,6 +17,7 @@ def main(filename: str, outname: str) -> None:
 
 
 def solveBestBook(
+<<<<<<< HEAD
         booksCollection: model.BooksCollection,
         librariesCollection: model.LibrariesCollection,
         totalDays: int
@@ -30,6 +32,21 @@ def solveBestBook(
     librariesToReturn = []
 
     while (totalDays > 0):
+=======
+    booksCollection: model.BooksCollection,
+    librariesCollection: model.LibrariesCollection,
+    totalDays: int,
+) -> any:
+    books = booksCollection.books  ## need a copy to do stuff
+    libraries = librariesCollection.libraries  ## need a copy to do stuff
+
+    currentlyOpening: model.Library = None  ## to tack currentlyOpeningLibraries
+    booksToRestore = []  ## to track currently added books in that fancy book[i]
+    librariesToRestore = []
+    openLibraries = 0  ## ++ on open
+
+    while totalDays > 0:
+>>>>>>> 6eb9995150b6593315a66f75bcbbb8f9d0181abd
         openLibrariesToFill = openLibraries
         for b in booksToRestore:
             booksCollection.removeBook(b)
@@ -50,27 +67,26 @@ def solveBestBook(
                         openLibrariesToFill -= 1
                     break
             if not isThereOneOpen:
-                if currentlyOpening == nil:
-                    currentlyOpening = min(currentBook.libraries, key=lambda x: if x.signin > 0: x.signin else: return 100000)
+                if currentlyOpening == None:
+                    currentlyOpening = min(
+                        currentBook.libraries,
+                        key=lambda x: x.signin if x.signin > 0 else 100000,
+                    )
             i += 1
 
-        if currentlyOpening == nil:
-            for l in booksCollection[i].libraries:
-                currentlyOpening = min(currentBook.libraries, key=lambda x: if x.signin > 0: x.signin else: return 100000)
+        if currentlyOpening == None:
+            for l in booksCollection.books[i].libraries:
+                currentlyOpening = min(
+                    currentBook.libraries,
+                    key=lambda x: x.signin if x.signin > 0 else 100000,
+                )
         else:
             currentlyOpening.signin -= 1
             if currentlyOpening == 0:
                 librariesToReturn.append(currentlyOpening)
-                currentlyOpening = nil
+                currentlyOpening = None
                 openLibraries += 1
 
         totalDays -= 1
 
     return librariesToReturn
-
-
-"""
-def solveFastLibrary() -> None:
-    ## opt2 FastLibraryFirst
-    pass
-"""
