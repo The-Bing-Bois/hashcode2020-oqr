@@ -1,7 +1,8 @@
 from __future__ import annotations
 
-from pathlib import Path
 import typing
+from pathlib import Path
+
 import attr
 
 
@@ -89,7 +90,6 @@ class InputReader:
 
         books = [Book(bid, score) for bid, score in enumerate(bookScores)]
 
-
         booksCollection = BooksCollection()
 
         for book in books:
@@ -101,7 +101,6 @@ class InputReader:
 
         currentLibraryId = 0
         for line in librariesLines:
-            # print(line)
             booksNumber, daysToSignup, booksShippedPerDay = (
                 int(x) for x in line.split(" ")
             )
@@ -122,7 +121,9 @@ class InputReader:
             librariesCollection.addLibrary(library)
             currentLibraryId += 1
 
-        booksCollection.books = sorted(booksCollection.books, key=lambda b: b.score, reverse=True)
+        booksCollection.books = sorted(
+            booksCollection.books, key=lambda b: b.score, reverse=True
+        )
 
         return booksCollection, librariesCollection, totalDays
 
