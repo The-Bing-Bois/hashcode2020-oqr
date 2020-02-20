@@ -24,10 +24,9 @@ class InputReader:
 @attr.s(frozen=True, slots=True, auto_attribs=True)
 class OutputWriter:
     filename: str = attr.ib(converter=str)
+    content: str = attr.ib(converter=str)
 
-    def save(self, content: str) -> None:
+    def save(self) -> None:
         outfile = Path("out").joinpath(self.filename)
 
-        outfile.write_text(content)
-
-        raise NotImplementedError()
+        outfile.write_text(self.content)
