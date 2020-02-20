@@ -43,10 +43,10 @@ class Book:
 
 
 class Library:
-    def __init__(self, lid: int, signin: int, signout: int) -> None:
+    def __init__(self, lid: int, signin: int, book_per_day: int) -> None:
         self.lid = lid
         self.signin = signin
-        self.signout = signout
+        self.books_per_day = book_per_day
         self.books = []
 
     def addbook(self, book: Book) -> None:
