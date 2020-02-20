@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 import typing
 
 from tqdm import tqdm
@@ -61,7 +63,12 @@ def solveBestBook(
                             )
                 i += 1
 
-            if currentlyOpening == None and i < len(booksCollection.books) and len(booksCollection.books) > 0 and len(booksCollection.books[i].libraries):
+            if (
+                currentlyOpening == None
+                and i < len(booksCollection.books)
+                and len(booksCollection.books) > 0
+                and len(booksCollection.books[i].libraries)
+            ):
                 currentlyOpening = min(
                     booksCollection.books[i].libraries,
                     key=lambda x: x.signin if x.signin > 0 else 100000,

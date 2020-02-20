@@ -11,10 +11,10 @@ pytest = "*"
 pytest-cov = "*"
 pytest-instafail = "*"
 pytest-spec = "*"
-attrs = "*"
-tqdm = "*"
 
 [packages]
+attrs = "*"
+tqdm = "*"
 
 [requires]
 python_version = "3.8"
