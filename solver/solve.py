@@ -31,6 +31,7 @@ def solveBestBook(
     openLibraries = 0  ## ++ on open
 
     while totalDays > 0:
+        print(librariesToReturn)
         openLibrariesToFill = openLibraries
         for b in booksToRestore:
             booksCollection.removeBook(b)
@@ -39,11 +40,11 @@ def solveBestBook(
         booksToRestore = []
         i = 0
 
-        while openLibrariesToFill > 0:
-            currentBook = books[i]
+        while openLibrariesToFill > 0 and i < len(booksCollection.books):
+            currentBook = booksCollection.books[i]
             isThereOneOpen = False
             for l in currentBook.libraries:
-                if l.singin == 0:
+                if l.signin == 0:
                     isThereOneOpen = True
                     librariesToRestore.append(l)
                     booksToRestore.append(currentBook)
@@ -58,14 +59,14 @@ def solveBestBook(
                     )
             i += 1
 
-        if currentlyOpening == None:
+        if currentlyOpening == None and i < len(booksCollection.books):
             currentlyOpening = min(
                 booksCollection.books[i].libraries,
                 key=lambda x: x.signin if x.signin > 0 else 100000,
             )
-        else:
+        if currentlyOpening:
             currentlyOpening.signin -= 1
-            if currentlyOpening == 0:
+            if currentlyOpening.signin == 0:
                 librariesToReturn.append(currentlyOpening)
                 currentlyOpening = None
                 openLibraries += 1
