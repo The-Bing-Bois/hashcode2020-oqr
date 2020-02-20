@@ -27,6 +27,7 @@ def solveBestBook(
     booksToRestore = [] ## to track currently added books in that fancy book[i]
     librariesToRestoe = []
     openLibraries = 0 ## ++ on open
+    librariesToReturn = []
 
     while (totalDays > 0):
         openLibrariesToFill = openLibraries
@@ -59,12 +60,13 @@ def solveBestBook(
         else:
             currentlyOpening.signin -= 1
             if currentlyOpening == 0:
+                librariesToReturn.append(currentlyOpening)
                 currentlyOpening = nil
                 openLibraries += 1
 
         totalDays -= 1
 
-    return libraries
+    return librariesToReturn
 
 
 """

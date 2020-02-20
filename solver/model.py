@@ -124,11 +124,11 @@ class InputReader:
 class OutputWriter:
     filename: str = attr.ib(converter=str)
 
-    def save(self, solutions: typing.List[Solution]) -> None:
+    def save(self, solutions: typing.List[Library]) -> None:
         solved = str(len(solutions)) + "\n"
         for solution in solutions:
-            solved += str(solution.idLibrary) + " " + str(len(solution.books)) + "\n"
-            for book in solution.books:
+            solved += str(solution.lid) + " " + str(len(solution.booksScanned)) + "\n"
+            for book in solution.booksScanned:
                 solved += str(book.bid) + " "
             solved += "\n"
 
