@@ -17,6 +17,40 @@
         "kind": "test",
         "isDefault": true
       }
+    },
+    {
+      "label": "run dataset",
+      "type": "shell",
+      "command": "pipenv run python -m solver in/${input:file} ${input:file}",
+      "presentation": {
+        "echo": true,
+        "reveal": "always",
+        "focus": false,
+        "panel": "new",
+        "showReuseMessage": true,
+        "clear": false
+      },
+      "group": {
+        "kind": "build",
+        "isDefault": true
+      },
+      "problemMatcher": []
+    }
+  ],
+  "inputs": [
+    {
+      "id": "file",
+      "description": "",
+      "type": "pickString",
+      "default": "a_example.txt",
+      "options": [
+        "a_example.txt",
+        "b_read_on.txt",
+        "c_incunabula.txt",
+        "d_tough_choices.txt",
+        "e_so_many_books.txt",
+        "f_libraries_of_the_world.txt"
+      ]
     }
   ]
 }
