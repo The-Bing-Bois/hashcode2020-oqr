@@ -58,11 +58,10 @@ def solveBestBook(
             i += 1
 
         if currentlyOpening == None:
-            for l in booksCollection.books[i].libraries:
-                currentlyOpening = min(
-                    currentBook.libraries,
-                    key=lambda x: x.signin if x.signin > 0 else 100000,
-                )
+            currentlyOpening = min(
+                booksCollection.books[i].libraries,
+                key=lambda x: x.signin if x.signin > 0 else 100000,
+            )
         else:
             currentlyOpening.signin -= 1
             if currentlyOpening == 0:
