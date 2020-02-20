@@ -60,7 +60,7 @@ class BooksCollection:
 
 
 class Solution:
-    def __init__(self, idLibrary, books: typing.List[Book]) -> None:
+    def __init__(self, idLibrary: int, books: typing.List[Book]) -> None:
         self.idLibrary = idLibrary
         self.books = books
 

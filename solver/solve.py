@@ -1,4 +1,3 @@
-from tqdm import tqdm
 import typing
 
 from . import model
