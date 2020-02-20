@@ -1,6 +1,7 @@
 from pathlib import Path
 import attr
 
+
 @attr.s(frozen=True, slots=True, auto_attribs=True)
 class InputReader:
     filename: str = attr.ib(converter=str)
@@ -30,44 +31,37 @@ class OutputWriter:
 
         outfile.write_text(self.content)
 
-@attr.s(frozen=True, slots=True, auto_attribs=True)
-class Library:
 
-    def __init__(self,lid,signin,signout)->None:
+class Library:
+    def __init__(self, lid, signin, signout) -> None:
         self.lid = lid
         self.signin = signin
         self.signout = signout
         self.books = []
 
-    def addbook(self, book)->None:
+    def addbook(self, book) -> None:
         self.books.append(book)
         book.assignLibraries(self)
 
 
 class Book:
-
-
-    def __init__(self,bid,score):
+    def __init__(self, bid, score):
         self.bid = bid
         self.score = score
         self.libraries = []
 
     def assignLibraries(self, library):
         self.libraries.append(library)
-            
-
 
 
 class LibraryCollection:
-
-
     def __init__(self):
-        self.libraries=[]
+        self.libraries = []
 
-    
-    def addLibrary(self,Library):
+    def addLibrary(self, Library):
         self.libraries.append(Library)
 
 
 class BooksCollection:
-    books:list[Book] = attr.ib(converter=list[Book])
+    books: list[Book] = attr.ib(converter=list[Book])
+
