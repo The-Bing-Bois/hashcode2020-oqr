@@ -1,6 +1,6 @@
-from sys import argv
+from tqdm import tqdm
 
-from solver import model
+from . import model
 
 
 def main(filename: str) -> None:
@@ -8,5 +8,5 @@ def main(filename: str) -> None:
     model.InputReader(filename).parse()
 
 
-if __name__ == "__main__":
-    main(argv[1])
+def solve() -> None:
+    pass
