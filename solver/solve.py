@@ -34,7 +34,7 @@ def solveBestBook(
     openLibraries = 0  ## ++ on open
 
     with tqdm(total=totalDays, ascii=True) as pbar:
-        while totalDays > 0:
+        while totalDays > 0 and len(booksCollection.books) > 0:
             openLibrariesToFill = openLibraries
             for b in booksToRestore:
                 booksCollection.removeBook(b)
@@ -47,7 +47,7 @@ def solveBestBook(
                 currentBook = booksCollection.books[i]
                 isThereOneOpen = False
                 for l in currentBook.libraries:
-                    if l.signin == 0:
+                    if l.signin <= 0:
                         isThereOneOpen = True
                         librariesToRestore.append(l)
                         booksToRestore.append(currentBook)
@@ -59,7 +59,7 @@ def solveBestBook(
                         if len(currentBook.libraries) > 0:
                             currentlyOpening = min(
                                 currentBook.libraries,
-                                key=lambda x: x.signin if x.signin > 0 else 100000,
+                                key=lambda x: x.signin if x.signin > 0 else 1000000,
                             )
                 i += 1
             if (
@@ -70,11 +70,11 @@ def solveBestBook(
             ):
                 currentlyOpening = min(
                     booksCollection.books[i].libraries,
-                    key=lambda x: x.signin if x.signin > 0 else 100000,
+                    key=lambda x: x.signin if x.signin > 0 else 1000000000,
                 )
             if currentlyOpening:
                 currentlyOpening.signin -= 1
-                if currentlyOpening.signin == 0:
+                if currentlyOpening.signin <= 0:
                     librariesToReturn.append(currentlyOpening)
                     currentlyOpening = None
                     openLibraries += 1
