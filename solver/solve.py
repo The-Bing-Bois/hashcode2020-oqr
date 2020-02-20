@@ -16,54 +16,59 @@ def main(filename: str) -> None:
     writer.save(solved)
 
 
-def solve(
-    booksCollection: model.BooksCollection,
-    librariesCollection: model.LibrariesCollection,
-) -> any:
-
-    raise NotImplementedError()
-
-"""
-def solveBestBook(model: Model??) -> None:
-    day = model.day
+def solveBestBook(
+        booksCollection: model.BooksCollection,
+        librariesCollection: model.LibrariesCollection,
+        totalDays: int
+    ) -> any:
     books = model.books // need a copy to do stuff
     libraries = model.libraries // need a copy to do stuff
+
     currentlyOpening = nil // to tack currentlyOpeningLibraries
     booksToRestore = [] // to track currently added books in that fancy book[i]
+    librariesToRestoe = []
     openLibraries = 0 // ++ on open
 
-    while (day > 0):
+    while (totalDays > 0):
         openLibrariesToFill = openLibraries
         for b in booksToRestore:
-            books.remove(b)
+            booksCollection.removeBook(b)
+        for l in librariesToRestore:
+            l.resetCountBooksPerDay()
+        booksToRestore = []
         i = 0
+
         while openLibrariesToFill > 0:
             currentBook = books[i]
-            if l = any(currentBook.libraries, .isOpen):
-                if l.appendBook(currentBook): // ritorna true se ultimo libro aggiungibile nella libreria
-                    openLibrarisToFill -= 1
-                booksToRestore.append(currentBook)
-            else:
-                if !currentlyOpening:
-                    l = min(currentBook.libraries, .signupTime):
-                    l.isOpening = True
-                    currentlyOpening = l
+            isThereOneOpen = False
+            for l in currentBook.libraries:
+                if l.singin == 0:
+                    isThereOneOpen = True
+                    librariesToRestore.append(l)
+                    booksToRestore.append(currentBook)
+                    if l.scanBook(currentBook) == 0:
+                        openLibrariesToFill -= 1
+                    break
+            if !isThereOneOpen:
+                if currentlyOpening == nil:
+                    currentlyOpening = min(currentBook.libraries, key=lambda x: if x.signin > 0: x.signin else: return 100000)
             i += 1
 
-        if !currentlyOpening:
-            l = any(books[i].libraries, !.isOpen)
-
-        if currentlyOpening:
-            if (l.tempoDiAttesa -= 1) == 0:
+        if currentlyOpening == nil:
+            for l in booksCollection[i].libraries:
+                currentlyOpening = min(currentBook.libraries, key=lambda x: if x.signin > 0: x.signin else: return 100000)
+        else:
+            currentlyOpening.signin -= 1
+            if currentlyOpening == 0:
                 currentlyOpening = nil
                 openLibraries += 1
 
-        day -= 1
+        totalDays -= 1
 
     return libraries
 
                 
-
+"""
             
     
 

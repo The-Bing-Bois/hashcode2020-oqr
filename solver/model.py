@@ -20,7 +20,9 @@ class Library:
         self.lid = lid
         self.signin = signin
         self.booksPerDay = bookPerDay
+        self.currentBooksPerDay = bookPerDay
         self.books: typing.List[Book] = []
+        self.booksScanned: typing.List[Book] = []
         self.scanned = False
 
     def addBook(self, book: Book) -> None:
@@ -29,6 +31,13 @@ class Library:
 
     def setScanned(self) -> None:
         self.scanned = True
+
+    def scanBook(self, book: Book) -> int:
+        self.currentBooksPerDay -= 1
+        return self.currentBooksPerDay
+
+    def resetCountBooksPerDay(self) -> None:
+        self.currentBooksPerDay = self.booksPerDay
 
 
 class LibrariesCollection:
@@ -45,6 +54,9 @@ class BooksCollection:
 
     def addBook(self, book: Book) -> None:
         self.books.append(book)
+
+    def removeBook(self, book: Book) -> None:
+        self.books.remove(book)
 
 
 class Solution:
