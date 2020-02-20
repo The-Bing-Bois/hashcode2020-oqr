@@ -30,7 +30,8 @@ def solveBestBook(
     openLibraries = 0  ## ++ on open
 
     while totalDays > 0:
-        print(librariesToReturn)
+        # print(librariesToReturn)
+        print(str(totalDays) + "\r")
         openLibrariesToFill = openLibraries
         for b in booksToRestore:
             booksCollection.removeBook(b)
@@ -52,13 +53,14 @@ def solveBestBook(
                     break
             if not isThereOneOpen:
                 if currentlyOpening == None:
-                    currentlyOpening = min(
-                        currentBook.libraries,
-                        key=lambda x: x.signin if x.signin > 0 else 100000,
-                    )
+                    if len(currentBook.libraries) > 0:
+                        currentlyOpening = min(
+                            currentBook.libraries,
+                            key=lambda x: x.signin if x.signin > 0 else 100000,
+                        )
             i += 1
 
-        if currentlyOpening == None and i < len(booksCollection.books):
+        if currentlyOpening == None and i < len(booksCollection.books) and len(booksCollection.books) > 0 and len(booksCollection.books[i].libraries):
             currentlyOpening = min(
                 booksCollection.books[i].libraries,
                 key=lambda x: x.signin if x.signin > 0 else 100000,
