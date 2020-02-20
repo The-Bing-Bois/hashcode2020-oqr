@@ -45,6 +45,11 @@ class BooksCollection:
         self.books.append(book)
 
 
+class Solution:
+    def __init__(self, idLibrary, books: typing.List[Book]) -> None:
+        self.idLibrary = idLibrary
+        self.books = books
+
 
 @attr.s(frozen=True, slots=True, auto_attribs=True)
 class InputReader:
