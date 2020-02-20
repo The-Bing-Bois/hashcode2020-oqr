@@ -17,22 +17,6 @@ def main(filename: str, outname: str) -> None:
 
 
 def solveBestBook(
-<<<<<<< HEAD
-        booksCollection: model.BooksCollection,
-        librariesCollection: model.LibrariesCollection,
-        totalDays: int
-    ) -> any:
-    books = model.books ## need a copy to do stuff
-    libraries = model.libraries ## need a copy to do stuff
-
-    currentlyOpening = nil ## to tack currentlyOpeningLibraries
-    booksToRestore = [] ## to track currently added books in that fancy book[i]
-    librariesToRestoe = []
-    openLibraries = 0 ## ++ on open
-    librariesToReturn = []
-
-    while (totalDays > 0):
-=======
     booksCollection: model.BooksCollection,
     librariesCollection: model.LibrariesCollection,
     totalDays: int,
@@ -46,7 +30,6 @@ def solveBestBook(
     openLibraries = 0  ## ++ on open
 
     while totalDays > 0:
->>>>>>> 6eb9995150b6593315a66f75bcbbb8f9d0181abd
         openLibrariesToFill = openLibraries
         for b in booksToRestore:
             booksCollection.removeBook(b)
