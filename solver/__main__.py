@@ -2,6 +2,7 @@ import sys
 
 ##from solver.solve import main
 from .model import Book, OutputWriter, Solution
+from .solve import main
 
 if __name__ == "__main__":
     if len(sys.argv) > 3:

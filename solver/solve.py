@@ -8,7 +8,7 @@ def main(filename: str, outname: str) -> None:
     reader = model.InputReader(filename)
     booksCollection, librariesCollection, totalDays = reader.parse()
 
-    solved = solve(booksCollection, librariesCollection)
+    solved = solveBestBook(booksCollection, librariesCollection,totalDays)
 
     writer = model.OutputWriter(outname)
 
