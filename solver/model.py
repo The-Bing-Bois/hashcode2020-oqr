@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 from pathlib import Path
 import typing
 import attr
@@ -18,30 +20,30 @@ class Library:
         self.lid = lid
         self.signin = signin
         self.booksPerDay = bookPerDay
-        self.books = []
+        self.books: typing.List[Book] = []
         self.scanned = False
 
     def addBook(self, book: Book) -> None:
         self.books.append(book)
         book.assignLibraries(self)
 
-    def setScanned(self):
+    def setScanned(self) -> None:
         self.scanned = True
 
 
 class LibrariesCollection:
     def __init__(self) -> None:
-        self.libraries = []
+        self.libraries: typing.List[Library] = []
 
-    def addLibrary(self, library: Library):
+    def addLibrary(self, library: Library) -> None:
         self.libraries.append(library)
 
 
 class BooksCollection:
     def __init__(self) -> None:
-        self.books = []
+        self.books: typing.List[Book] = []
 
-    def addBook(self, book: Book):
+    def addBook(self, book: Book) -> None:
         self.books.append(book)
 
 
@@ -55,17 +57,19 @@ class Solution:
 class InputReader:
     filename: str = attr.ib(converter=str)
 
-    def parse(self) -> None:
+    def parse(self) -> typing.Tuple[BooksCollection, LibrariesCollection]:
         content = Path(self.filename).read_text().split("\n")
 
-        books_number, libraries_number, days = (int(x) for x in content[0].split(" "))
+        booksNumber, librariesNumber, days = (int(x) for x in content[0].split(" "))
 
-        book_scores = [int(x) for x in content[1].split(" ")]
+        bookScores = [int(x) for x in content[1].split(" ")]
 
-        assert len(book_scores) == books_number
+        assert len(bookScores) == booksNumber
 
-        print(books_number, libraries_number, days)
-        print(book_scores)
+        books = [Book(bid, score) for bid, score in enumerate(bookScores)]
+
+        for book in books:
+            print(book.bid, book.score)
 
         raise NotImplementedError()
 
