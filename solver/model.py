@@ -7,13 +7,16 @@ class InputReader:
     filename: str = attr.ib(converter=str)
 
     def parse(self) -> None:
-        path = Path(self.filename)
+        content = Path(self.filename).read_text().split("\n")
 
-        content = path.read_text().split("\n")
+        books_number, libraries_number, days = (int(x) for x in content[0].split(" "))
 
-        books_number, libraries_number, days = content[0].split(" ")
+        book_scores = [int(x) for x in content[1].split(" ")]
+
+        assert len(book_scores) == books_number
 
         print(books_number, libraries_number, days)
+        print(book_scores)
 
         raise NotImplementedError()
 
