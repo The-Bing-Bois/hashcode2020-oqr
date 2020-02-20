@@ -5,9 +5,23 @@ from . import model
 
 def main(filename: str) -> None:
 
-    model.InputReader(filename).parse()
+    booksCollection, librariesCollection = model.InputReader(filename).parse()
+
+    solved = solve(booksCollection, librariesCollection)
+
+    writer = model.OutputWriter("example_output")
+
+    writer.save(solved)
 
 
+def solve(
+    booksCollection: model.BooksCollection,
+    librariesCollection: model.LibrariesCollection,
+) -> any:
+
+    raise NotImplementedError()
+
+"""
 def solveBestBook(model: Model??) -> None:
     day = model.day
     books = model.books // need a copy to do stuff
@@ -54,3 +68,4 @@ def solveBestBook(model: Model??) -> None:
 def solveFastLibrary() -> None:
     // opt2 FastLibraryFirst
     pass
+"""

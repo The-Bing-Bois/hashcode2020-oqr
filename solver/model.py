@@ -1,14 +1,17 @@
+from __future__ import annotations
+
 from pathlib import Path
+import typing
 import attr
 
 
 class Book:
-    def __init__(self, bid, score):
+    def __init__(self, bid: int, score: int) -> None:
         self.bid = bid
         self.score = score
-        self.libraries = []
+        self.libraries: typing.List[Library] = []
 
-    def assignLibraries(self, library):
+    def assignLibraries(self, library: Library) -> None:
         self.libraries.append(library)
 
 
@@ -17,49 +20,56 @@ class Library:
         self.lid = lid
         self.signin = signin
         self.booksPerDay = bookPerDay
-        self.books = []
-        self.read = False
+        self.books: typing.List[Book] = []
+        self.scanned = False
 
     def addBook(self, book: Book) -> None:
         self.books.append(book)
         book.assignLibraries(self)
 
-    def setRead(self):
-        self.read = False
+    def setScanned(self) -> None:
+        self.scanned = True
 
 
-class LibraryCollection:
-    def __init__(self):
-        self.libraries = []
+class LibrariesCollection:
+    def __init__(self) -> None:
+        self.libraries: typing.List[Library] = []
 
-    def addLibrary(self, library: Library):
+    def addLibrary(self, library: Library) -> None:
         self.libraries.append(library)
 
 
 class BooksCollection:
-    def __init__(self):
-        self.books = []
+    def __init__(self) -> None:
+        self.books: typing.List[Book] = []
 
-    def addBook(self, book: Book):
+    def addBook(self, book: Book) -> None:
         self.books.append(book)
 
+
+class Solution:
+    def __init__(self, idLibrary, books: typing.List[Book]) -> None:
+        self.idLibrary = idLibrary
+        self.books = books
 
 
 @attr.s(frozen=True, slots=True, auto_attribs=True)
 class InputReader:
     filename: str = attr.ib(converter=str)
 
-    def parse(self) -> None:
+    def parse(self) -> typing.Tuple[BooksCollection, LibrariesCollection]:
         content = Path(self.filename).read_text().split("\n")
 
-        books_number, libraries_number, days = (int(x) for x in content[0].split(" "))
+        booksNumber, librariesNumber, days = (int(x) for x in content[0].split(" "))
 
-        book_scores = [int(x) for x in content[1].split(" ")]
+        bookScores = [int(x) for x in content[1].split(" ")]
 
-        assert len(book_scores) == books_number
+        assert len(bookScores) == booksNumber
 
-        print(books_number, libraries_number, days)
-        print(book_scores)
+        books = [Book(bid, score) for bid, score in enumerate(bookScores)]
+
+        for book in books:
+            print(book.bid, book.score)
 
         raise NotImplementedError()
 
@@ -68,7 +78,14 @@ class InputReader:
 class OutputWriter:
     filename: str = attr.ib(converter=str)
 
-    def save(self, booksCollection: BooksCollection, libraryCollection: LibraryCollection) -> None:
+    def save(self, solutions: typing.List[Solution]) -> None:
+        solved = str(len(solutions)) + "\n"
+        for solution in solutions:
+            solved += str(solution.idLibrary) + " " + str(len(solution.books)) + "\n"
+            for book in solution.books:
+                solved += str(book.bid) + " "
+            solved += "\n"
+
         outfile = Path("out").joinpath(self.filename)
 
-        # outfile.write_text(...) to write
+        outfile.write_text(solved)
