@@ -4,12 +4,12 @@ import attr
 
 
 class Book:
-    def __init__(self, bid, score):
+    def __init__(self, bid: int, score: int) -> None:
         self.bid = bid
         self.score = score
-        self.libraries = []
+        self.libraries: typing.List[Library] = []
 
-    def assignLibraries(self, library):
+    def assignLibraries(self, library: Library) -> None:
         self.libraries.append(library)
 
 
