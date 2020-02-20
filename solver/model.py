@@ -41,16 +41,20 @@ class Library:
 
     def addbook(self, book)->None:
         self.books.append(book)
+        book.assignLibraries(self)
 
 
 class Book:
 
 
-    def __init__(self,bid,libraries):
+    def __init__(self,bid,score):
         self.bid = bid
+        self.score = score
         self.libraries = []
-        for library in libraries:
-            self.libraries.append(library)
+
+    def assignLibraries(self, library):
+        self.libraries.append(library)
+            
 
 
 
@@ -65,3 +69,5 @@ class LibraryCollection:
         self.libraries.append(Library)
 
 
+class BooksCollection:
+    books:list[Book] = attr.ib(converter=list[Book])
