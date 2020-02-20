@@ -5,8 +5,18 @@ from . import model
 
 def main(filename: str) -> None:
 
-    model.InputReader(filename).parse()
+    booksCollection, librariesCollection = model.InputReader(filename).parse()
+
+    solved = solve(booksCollection, librariesCollection)
+
+    writer = model.OutputWriter("example_output")
+
+    writer.save(solved)
 
 
-def solve() -> None:
-    pass
+def solve(
+    booksCollection: model.BooksCollection,
+    librariesCollection: model.LibrariesCollection,
+) -> any:
+
+    raise NotImplementedError()

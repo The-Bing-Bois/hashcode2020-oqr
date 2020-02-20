@@ -1,4 +1,5 @@
 from pathlib import Path
+import typing
 import attr
 
 
@@ -28,8 +29,8 @@ class Library:
         self.read = False
 
 
-class LibraryCollection:
-    def __init__(self):
+class LibrariesCollection:
+    def __init__(self) -> None:
         self.libraries = []
 
     def addLibrary(self, library: Library):
@@ -37,7 +38,7 @@ class LibraryCollection:
 
 
 class BooksCollection:
-    def __init__(self):
+    def __init__(self) -> None:
         self.books = []
 
     def addBook(self, book: Book):
@@ -68,7 +69,7 @@ class InputReader:
 class OutputWriter:
     filename: str = attr.ib(converter=str)
 
-    def save(self, booksCollection: BooksCollection, libraryCollection: LibraryCollection) -> None:
+    def save(self, solved) -> None:
         outfile = Path("out").joinpath(self.filename)
 
-        # outfile.write_text(...) to write
+        outfile.write_text(solved)
