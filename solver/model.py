@@ -11,6 +11,9 @@ class Book:
         self.score = score
         self.libraries: typing.List[Library] = []
 
+    def __repr__(self) -> str:
+        return f"{self.bid}, {self.score}"
+
     def assignLibraries(self, library: Library) -> None:
         self.libraries.append(library)
 
@@ -25,6 +28,9 @@ class Library:
         self.booksScanned: typing.List[Book] = []
         self.scanned = False
 
+    def __repr__(self) -> str:
+        return f"id: {self.lid}, {self.booksScanned}"
+
     def addBook(self, book: Book) -> None:
         self.books.append(book)
         book.assignLibraries(self)
@@ -34,6 +40,7 @@ class Library:
 
     def scanBook(self, book: Book) -> int:
         self.currentBooksPerDay -= 1
+        self.booksScanned.append(book)
         return self.currentBooksPerDay
 
     def resetCountBooksPerDay(self) -> None:
