@@ -97,7 +97,7 @@ class InputReader:
 
         librariesCollection = LibrariesCollection()
 
-        librariesLines = iter(content[2:-1])
+        librariesLines = iter(content[2:-2])
 
         currentLibraryId = 0
         for line in librariesLines:
