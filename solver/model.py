@@ -95,13 +95,11 @@ class InputReader:
 
         currentLibraryId = 0
         for line in librariesLines:
-            print("line", line)
             booksNumber, daysToSignup, booksShippedPerDay = (
                 int(x) for x in line.split(" ")
             )
 
             nextLine = next(librariesLines)
-            print("nextline", nextLine)
             bookIds = [int(x) for x in nextLine.split(" ")]
 
             assert len(bookIds) == booksNumber
