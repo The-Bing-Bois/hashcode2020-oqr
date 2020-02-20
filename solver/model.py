@@ -89,11 +89,10 @@ class InputReader:
 
         books = [Book(bid, score) for bid, score in enumerate(bookScores)]
 
-        sortedBooks = sorted(books, key=lambda b: b.score, reverse=True)
 
         booksCollection = BooksCollection()
 
-        for book in sortedBooks:
+        for book in books:
             booksCollection.addBook(book)
 
         librariesCollection = LibrariesCollection()
@@ -102,6 +101,7 @@ class InputReader:
 
         currentLibraryId = 0
         for line in librariesLines:
+            # print(line)
             booksNumber, daysToSignup, booksShippedPerDay = (
                 int(x) for x in line.split(" ")
             )
@@ -114,13 +114,15 @@ class InputReader:
             library = Library(currentLibraryId, daysToSignup, booksShippedPerDay)
 
             for bookId in bookIds:
-                book = next(filter(lambda b: b.bid == bookId, booksCollection.books))
+                # book = next(filter(lambda b: b.bid == bookId, booksCollection.books))
 
-                library.addBook(book)
-                book.assignLibraries(library)
+                library.addBook(booksCollection.books[bookId])
+                booksCollection.books[bookId].assignLibraries(library)
 
             librariesCollection.addLibrary(library)
             currentLibraryId += 1
+
+        booksCollection.books = sorted(booksCollection.books, key=lambda b: b.score, reverse=True)
 
         return booksCollection, librariesCollection, totalDays
 
