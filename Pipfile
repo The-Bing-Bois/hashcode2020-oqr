@@ -11,6 +11,7 @@ pytest = "*"
 pytest-cov = "*"
 pytest-instafail = "*"
 pytest-spec = "*"
+attrs = "*"
 
 [packages]
 tqdm = "*"
