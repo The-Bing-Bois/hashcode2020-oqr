@@ -37,27 +37,31 @@ class Book:
         self.score = score
         self.libraries = []
 
-    def assign_libraries(self, library):
+    def assignLibraries(self, library):
         self.libraries.append(library)
 
 
 class Library:
-    def __init__(self, lid: int, signin: int, book_per_day: int) -> None:
+    def __init__(self, lid: int, signin: int, bookPerDay: int) -> None:
         self.lid = lid
         self.signin = signin
-        self.books_per_day = book_per_day
+        self.booksPerDay = bookPerDay
         self.books = []
+        self.read = False
 
-    def addbook(self, book: Book) -> None:
+    def addBook(self, book: Book) -> None:
         self.books.append(book)
-        book.assign_libraries(self)
+        book.assignLibraries(self)
+
+    def setRead(self):
+        self.read = False
 
 
 class LibraryCollection:
     def __init__(self):
         self.libraries = []
 
-    def add_library(self, library: Library):
+    def addLibrary(self, library: Library):
         self.libraries.append(library)
 
 
@@ -65,6 +69,6 @@ class BooksCollection:
     def __init__(self):
         self.books = []
 
-    def add_book(self, book: Book):
+    def addBook(self, book: Book):
         self.books.append(book)
 
