@@ -69,10 +69,12 @@ class Solution:
 class InputReader:
     filename: str = attr.ib(converter=str)
 
-    def parse(self) -> typing.Tuple[BooksCollection, LibrariesCollection]:
+    def parse(self) -> typing.Tuple[BooksCollection, LibrariesCollection, int]:
         content = Path(self.filename).read_text().split("\n")
 
-        booksNumber, librariesNumber, days = (int(x) for x in content[0].split(" "))
+        booksNumber, librariesNumber, totalDays = (
+            int(x) for x in content[0].split(" ")
+        )
 
         bookScores = [int(x) for x in content[1].split(" ")]
 
@@ -80,10 +82,42 @@ class InputReader:
 
         books = [Book(bid, score) for bid, score in enumerate(bookScores)]
 
-        for book in books:
-            print(book.bid, book.score)
+        sortedBooks = sorted(books, key=lambda b: b.score, reverse=True)
 
-        raise NotImplementedError()
+        booksCollection = BooksCollection()
+
+        for book in sortedBooks:
+            booksCollection.addBook(book)
+
+        librariesCollection = LibrariesCollection()
+
+        librariesLines = iter(content[2:-1])
+
+        currentLibraryId = 0
+        for line in librariesLines:
+            print("line", line)
+            booksNumber, daysToSignup, booksShippedPerDay = (
+                int(x) for x in line.split(" ")
+            )
+
+            nextLine = next(librariesLines)
+            print("nextline", nextLine)
+            bookIds = [int(x) for x in nextLine.split(" ")]
+
+            assert len(bookIds) == booksNumber
+
+            library = Library(currentLibraryId, daysToSignup, booksShippedPerDay)
+
+            for bookId in bookIds:
+                book = next(filter(lambda b: b.bid == bookId, booksCollection.books))
+
+                library.addBook(book)
+                book.assignLibraries(library)
+
+            librariesCollection.addLibrary(library)
+            currentLibraryId += 1
+
+        return booksCollection, librariesCollection, totalDays
 
 
 @attr.s(frozen=True, slots=True, auto_attribs=True)

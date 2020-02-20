@@ -3,15 +3,14 @@ from tqdm import tqdm
 from . import model
 
 
-def main(filename: str) -> None:
+def main(filename: str, outname: str) -> None:
 
-    booksCollection, librariesCollection, totalDays = model.InputReader(
-        filename
-    ).parse()
+    reader = model.InputReader(filename)
+    booksCollection, librariesCollection, totalDays = reader.parse()
 
     solved = solve(booksCollection, librariesCollection)
 
-    writer = model.OutputWriter("example_output")
+    writer = model.OutputWriter(outname)
 
     writer.save(solved)
 
@@ -67,11 +66,8 @@ def solveBestBook(
 
     return libraries
 
-                
-"""
-            
-    
 
+"""
 def solveFastLibrary() -> None:
     ## opt2 FastLibraryFirst
     pass
