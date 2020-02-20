@@ -21,13 +21,13 @@ def solveBestBook(
         librariesCollection: model.LibrariesCollection,
         totalDays: int
     ) -> any:
-    books = model.books // need a copy to do stuff
-    libraries = model.libraries // need a copy to do stuff
+    books = model.books ## need a copy to do stuff
+    libraries = model.libraries ## need a copy to do stuff
 
-    currentlyOpening = nil // to tack currentlyOpeningLibraries
-    booksToRestore = [] // to track currently added books in that fancy book[i]
+    currentlyOpening = nil ## to tack currentlyOpeningLibraries
+    booksToRestore = [] ## to track currently added books in that fancy book[i]
     librariesToRestoe = []
-    openLibraries = 0 // ++ on open
+    openLibraries = 0 ## ++ on open
 
     while (totalDays > 0):
         openLibrariesToFill = openLibraries
@@ -49,7 +49,7 @@ def solveBestBook(
                     if l.scanBook(currentBook) == 0:
                         openLibrariesToFill -= 1
                     break
-            if !isThereOneOpen:
+            if not isThereOneOpen:
                 if currentlyOpening == nil:
                     currentlyOpening = min(currentBook.libraries, key=lambda x: if x.signin > 0: x.signin else: return 100000)
             i += 1
@@ -73,6 +73,6 @@ def solveBestBook(
     
 
 def solveFastLibrary() -> None:
-    // opt2 FastLibraryFirst
+    ## opt2 FastLibraryFirst
     pass
 """
