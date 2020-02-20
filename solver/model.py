@@ -32,36 +32,40 @@ class OutputWriter:
         outfile.write_text(self.content)
 
 
-class Library:
-    def __init__(self, lid, signin, signout) -> None:
-        self.lid = lid
-        self.signin = signin
-        self.signout = signout
-        self.books = []
-
-    def addbook(self, book) -> None:
-        self.books.append(book)
-        book.assignLibraries(self)
-
-
 class Book:
     def __init__(self, bid, score):
         self.bid = bid
         self.score = score
         self.libraries = []
 
-    def assignLibraries(self, library):
+    def assign_libraries(self, library):
         self.libraries.append(library)
+
+
+class Library:
+    def __init__(self, lid: int, signin: int, signout: int) -> None:
+        self.lid = lid
+        self.signin = signin
+        self.signout = signout
+        self.books = []
+
+    def addbook(self, book: Book) -> None:
+        self.books.append(book)
+        book.assign_libraries(self)
 
 
 class LibraryCollection:
     def __init__(self):
         self.libraries = []
 
-    def addLibrary(self, Library):
-        self.libraries.append(Library)
+    def add_library(self, library: Library):
+        self.libraries.append(library)
 
 
 class BooksCollection:
-    books: list[Book] = attr.ib(converter=list[Book])
+    def __init__(self):
+        self.books = []
+
+    def add_book(self, book: Book):
+        self.books.append(book)
 
