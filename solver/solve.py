@@ -1,5 +1,7 @@
 import typing
 
+from tqdm import tqdm
+
 from . import model
 
 
@@ -29,9 +31,8 @@ def solveBestBook(
     librariesToReturn = []
     openLibraries = 0  ## ++ on open
 
+    with tqdm(total=totalDays, ascii=True) as pbar:
     while totalDays > 0:
-        # print(librariesToReturn)
-        print(str(totalDays) + "\r")
         openLibrariesToFill = openLibraries
         for b in booksToRestore:
             booksCollection.removeBook(b)
@@ -73,5 +74,6 @@ def solveBestBook(
                 openLibraries += 1
 
         totalDays -= 1
+            pbar.update()
 
     return librariesToReturn
