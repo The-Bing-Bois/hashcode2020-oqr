@@ -19,14 +19,14 @@ class Library:
         self.signin = signin
         self.booksPerDay = bookPerDay
         self.books = []
-        self.read = False
+        self.scanned = False
 
     def addBook(self, book: Book) -> None:
         self.books.append(book)
         book.assignLibraries(self)
 
-    def setRead(self):
-        self.read = False
+    def setScanned(self):
+        self.scanned = True
 
 
 class LibrariesCollection:
@@ -74,7 +74,14 @@ class InputReader:
 class OutputWriter:
     filename: str = attr.ib(converter=str)
 
-    def save(self, solved) -> None:
+    def save(self, solutions: typing.List[Solution]) -> None:
+        solved = str(len(solutions)) + "\n"
+        for solution in solutions:
+            solved += str(solution.idLibrary) + " " + str(len(solution.books)) + "\n"
+            for book in solution.books:
+                solved += str(book.bid) + " "
+            solved += "\n"
+
         outfile = Path("out").joinpath(self.filename)
 
         outfile.write_text(solved)
